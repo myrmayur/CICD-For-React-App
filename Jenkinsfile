@@ -13,13 +13,13 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from the GitHub repository using the credentials
-                git url: 'https://github.com/myrmayur/my-app.git', branch: 'main', credentialsId: "${GITHUB_CREDENTIALS}"
+                git url: 'https://github.com/myrmayur/my-app.git', branch: 'master', credentialsId: "${GITHUB_CREDENTIALS}"
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'npm start'
             }
         }
 
