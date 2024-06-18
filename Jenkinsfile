@@ -3,11 +3,10 @@ pipeline {
 
     tools {
         nodejs 'NodeJs' // Ensure this matches the name in Global Tool Configuration
-        git 'Git' // Ensure this matches the name in Global Tool Configuration
     }
 
     environment {
-        GITHUB_CREDENTIALS = credentials'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' // Use the ID of the credentials added in Jenkins
+        GITHUB_CREDENTIALS = credentials'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' // The ID of the credentials added in Jenkins
     }
 
     stages {
@@ -37,7 +36,7 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed!'
-            currentBuild.result = 'FAILURE'
+            currentBuild.result = 'FAILURE' // Set build result to FAILURE on failure
         }
     }
 }
