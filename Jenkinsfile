@@ -1,31 +1,43 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJs' // Ensure this matches the name in Global Tool Configuration
-    }
-
-    environment {
-        GITHUB_CREDENTIALS = credentials'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' // The ID of the credentials added in Jenkins
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the GitHub repository using the credentials
-                git url: 'https://github.com/myrmayur/my-app.git', branch: 'master', credentialsId: "${GITHUB_CREDENTIALS}"
+                // Checkout the code from your GitHub repository
+                git url: 'https://github.com/myrmayur/my-app.git', branch: 'master'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install' // Install NodeJS dependencies
+                // Install Node.js and npm if not already installed (example)
+                // nodejs('NodeJS 14') {
+                //     sh 'npm install'
+                // }
+                sh 'npm install'
             }
         }
 
-        stage('Start Application') {
+        stage('Run Tests') {
             steps {
-                sh 'npm start' // Ensure the npm start script is correctly configured in package.json
+                // Run tests using npm
+                sh 'npm test'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Build the React app for production
+                sh 'npm run build'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Example: Copy build artifacts to a server or hosting platform
+                // Adjust this step based on your deployment target
+                sh 'cp -r build/* /path/to/deploy/directory'
             }
         }
     }
@@ -33,10 +45,11 @@ pipeline {
     post {
         success {
             echo 'Pipeline succeeded!'
+            currentBuild.result = 'SUCCESS'
         }
         failure {
             echo 'Pipeline failed!'
-            currentBuild.result = 'FAILURE' // Set build result to FAILURE on failure
+            currentBuild.result = 'FAILURE'
         }
     }
 }
