@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        GITHUB_CREDENTIALS = credentials('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') // The ID of the credentials added in Jenkins
+        GITHUB_CREDENTIALS = credentials'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' // The ID of the credentials added in Jenkins
     }
 
     stages {
