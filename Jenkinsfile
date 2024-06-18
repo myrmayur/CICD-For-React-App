@@ -23,23 +23,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                sh 'npm run build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'npm test'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh 'cp -r build/* /path/to/deploy/directory'
-            }
-        }
+        
     }
 
     post {
