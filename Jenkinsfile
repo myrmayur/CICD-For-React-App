@@ -42,7 +42,7 @@ pipeline {
         }
         failure {
             script {
-                currentBuild.result = 'FAILURE'
+                currentBuild.result = 'FAILURES'
             }
         }
     }
