@@ -1,37 +1,39 @@
 pipeline {
     agent any
-    
+
     environment {
-        GITHUB_REPO_URL = 'https://github.com/myrmayur/my-app.git'
-        DOCERHUB_CREDENTALS = 'Dockerhub'
-        DOCKER_REPO = 'myrmayur/testapp'
+        DOCKER_HUB_CREDENTIALS = 'Dockerhub'
+        DOCKER_HUB_REPO = 'myrmayur/testapp'
+        GIT_REPO_URL = 'https://github.com/your-username/your-repo.git'
+        GIT_CREDENTIALS_ID = 'Github'
     }
-    
-    
+
     stages {
         stage('Checkout') {
             steps {
-                git url: "${env.GITHUB_REPO_UR}"
+                git credentialsId: "${env.GIT_CREDENTIALS_ID}", url: "${env.GIT_REPO_URL}"
             }
         }
-        
-         stage('Build') {
+
+        stage('Build') {
             steps {
                 sh 'npm install'
                 sh 'npm run build'
             }
         }
-         stage('Docker Build') {
+
+        stage('Docker Build') {
             steps {
                 script {
-                    dockerImage = docker.build("${env.DOCKER_REPO}")
+                    dockerImage = docker.build("${env.DOCKER_HUB_REPO}")
                 }
             }
         }
+
         stage('Docker Push') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${env.DOCERHUB_CREDENTALS}") {
+                    docker.withRegistry('https://index.docker.io/v1/', "${env.DOCKER_HUB_CREDENTIALS}") {
                         dockerImage.push("latest")
                     }
                 }
