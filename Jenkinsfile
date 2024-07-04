@@ -1,49 +1,47 @@
 pipeline {
     agent any
-
+    
+    environment {
+        GITHUB_REPO_URL = 'https://github.com/myrmayur/my-app.git'
+        DOCERHUB_CREDENTALS = 'Dockerhub'
+        DOCKER_REPO = 'myrmayur/testapp'
+    }
+    
+    
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/myrmayur/my-app.git', branch: 'master'
+                git url: "${env.GITHUB_REPO_UR}"
             }
         }
-
-        stage('Install Dependencies') {
+        
+         stage('Build') {
             steps {
                 sh 'npm install'
-            }
-        }
-
-
-        stage('Run Tests') {
-            steps {
-                sh 'npm test'
-            }
-        }
-
-        stage('Build') {
-            steps {
                 sh 'npm run build'
             }
         }
-
-        stage('Deploy') {
+         stage('Docker Build') {
             steps {
-                sh 'cp -r build/* /'
+                script {
+                    dockerImage = docker.build("${env.DOCKER_REPO}")
+                }
+            }
+        }
+        stage('Docker Push') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', "${env.DOCERHUB_CREDENTALS}") {
+                        dockerImage.push("latest")
+                    }
+                }
             }
         }
     }
 
     post {
-        success {
-            script {
-                currentBuild.result = 'SUCCESS'
-            }
-        }
-        failure {
-            script {
-                currentBuild.result = 'FAILURES'
-            }
+        always {
+            cleanWs()
         }
     }
 }
