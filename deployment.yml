@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+spec:
+  replicas: 3  # Number of replicas
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app-container
+        image: your-dockerhub-username/your-private-image-name:tag  # Replace with your private image
+        ports:
+        - containerPort: 80  # Replace with the port your app listens on
+      imagePullSecrets:
+      - name: my-dockerhub-secret
