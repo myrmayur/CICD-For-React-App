@@ -118,4 +118,4 @@ Verify the Service:
 kubectl get services
 ```
 ## Conclusion
-By following these steps, you will have a fully functional CI/CD pipeline with Jenkins, GitHub, and DockerHub for your React.js application on your EC2 Ubuntu server.
+By following these steps, you will have a fully functional CI/CD pipeline with Jenkins, GitHub, DockerHub and Kubernetes for your React.js application on your EC2 Ubuntu server.
