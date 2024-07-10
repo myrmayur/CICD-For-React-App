@@ -1,4 +1,4 @@
-# CI/CD Pipeline Setup with Jenkins, GitHub, and Docker
+# CI/CD Pipeline Setup with Jenkins, GitHub, Docker and Kubernetes
 
 This guide describes how to set up Jenkins on an EC2 Ubuntu server, integrate it with GitHub, and configure a Jenkins pipeline to build, test, and push a Docker image of a React.js application to DockerHub.
 
@@ -69,5 +69,53 @@ Install the following plugins:
 2. Jenkins will pull your React.js code, build it, create a Docker image, and push it to DockerHub.
 ## Deploy the Docker Image
  You can deploy the Docker image to your desired environment (e.g., another EC2 instance, Kubernetes, etc.).
+
+
+## Kubernetes Deployment for Private Docker Hub Image
+
+This repository contains the configuration files and instructions to deploy a Docker image from a private Docker Hub repository to a Kubernetes cluster.
+
+## Prerequisites
+
+- A Kubernetes cluster (Minikube for local development or any managed Kubernetes service like AWS EKS, GCP GKE, Azure AKS)
+- `kubectl` installed and configured to interact with your Kubernetes cluster
+- Docker Hub account with a private repository
+
+## Step 1: Create a Docker Hub Secret
+
+Create a Kubernetes secret to store your Docker Hub credentials. Run the following command, replacing `your-dockerhub-username`, `your-dockerhub-password`, and `your-email@example.com` with your Docker Hub credentials.
+
+```sh
+kubectl create secret docker-registry my-dockerhub-secret \
+  --docker-username=your-dockerhub-username \
+  --docker-password=your-dockerhub-password \
+  --docker-email=your-email@example.com
+```
+Verify the secret:
+```sh
+kubectl get secrets
+```
+## Step 2: Update the Deployment YAML
+Update your deployment.yaml file to use the created secret. For reference example file of a Deployment YAML is present.
+## Step 3: Apply the Deployment YAML
+Apply the updated Deployment YAML file to your Kubernetes cluster:
+```sh
+kubectl apply -f deployment.yaml
+```
+Verify the Deployment:
+```sh
+kubectl get deployments
+kubectl get pods
+```
+## Step 4: Create a Service (Optional)
+If you haven't already, create a Service to expose your Deployment. Example of a Service YAML file is present
+# Apply the Service YAML file:
+```sh
+kubectl apply -f service.yaml
+```
+Verify the Service:
+```sh
+kubectl get services
+```
 ## Conclusion
 By following these steps, you will have a fully functional CI/CD pipeline with Jenkins, GitHub, and DockerHub for your React.js application on your EC2 Ubuntu server.
