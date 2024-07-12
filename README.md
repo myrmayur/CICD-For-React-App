@@ -8,7 +8,8 @@ This guide describes how to set up Jenkins on an EC2 Ubuntu server, integrate it
 - GitHub repository containing your React.js application
 - DockerHub account
 ## Architecture Diagram
-![image]([https://github.com/myrmayur/Centralized-Windows-system-loging-and-monitoring-using-Grafana/blob/main/grafana%20architecture.png?raw=true](https://github.com/myrmayur/CICD-For-React-App/blob/master/React%20CICD.png?raw=true)
+![image](https://github.com/myrmayur/CICD-For-React-App/blob/master/React%20CICD.png?raw=true)
+
 ## Step 1: Set Up Jenkins on EC2 Ubuntu Server
 
 ### 1.1 Update and Install Required Packages
