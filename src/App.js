@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> changes make for testing the webhook trigger Test 1
+          Edit <code>src/App.js</code> changes make for testing the webhook trigger Test 2
         </p>
         <a
           className="App-link"
