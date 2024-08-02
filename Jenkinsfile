@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = 'Dockerhub'
         DOCKER_HUB_REPO = 'myrmayur/testapp'
-        GIT_REPO_URL = 'https://github.com/myrmayur/my-app.git'
+        GIT_REPO_URL = 'https://github.com/myrmayur/CICD-For-React-App.git'
         GIT_CREDENTIALS_ID = 'Github'
     }
 
